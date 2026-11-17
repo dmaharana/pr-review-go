@@ -1,0 +1,14 @@
+Please describe the following Pull Request:
+
+Title: {{ .Title }}
+Branch: {{ .HeadBranch }} -> {{ .BaseBranch }}
+
+Current Description:
+{{ if .Description }}{{ .Description }}{{ else }}No description provided.{{ end }}
+
+Pull Request Code Diff:
+======
+{{ .Diff }}
+======
+
+Provide your description JSON now.

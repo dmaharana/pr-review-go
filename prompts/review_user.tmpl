@@ -1,0 +1,15 @@
+Review the following Pull Request:
+
+Title: {{ .Title }}
+Branch: {{ .HeadBranch }} -> {{ .BaseBranch }}
+Author: {{ .Author }}
+
+Description:
+{{ if .Description }}{{ .Description }}{{ else }}No description provided.{{ end }}
+
+Pull Request Code Diff:
+======
+{{ .Diff }}
+======
+
+Provide your review JSON now.
