@@ -1,0 +1,36 @@
+services:
+  pr-reviewer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pr-review-go:latest
+    container_name: pr-review-go
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      # --- LLM Settings (OpenAI, Azure, Groq, Ollama, DeepSeek) ---
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL:-https://api.openai.com/v1}
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o}
+
+      # --- GitHub (SaaS or Enterprise Server) ---
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+      - GITHUB_BASE_URL=${GITHUB_BASE_URL:-}
+      - GITHUB_WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET:-}
+      - GITHUB_APP_ID=${GITHUB_APP_ID:-}
+      - GITHUB_APP_PRIVATE_KEY=${GITHUB_APP_PRIVATE_KEY:-}
+
+      # --- Bitbucket Cloud ---
+      - BITBUCKET_USERNAME=${BITBUCKET_USERNAME:-}
+      - BITBUCKET_APP_PASSWORD=${BITBUCKET_APP_PASSWORD:-}
+
+      # --- Bitbucket Data Center / Server ---
+      - BITBUCKET_SERVER_BASE_URL=${BITBUCKET_SERVER_BASE_URL:-}
+      - BITBUCKET_SERVER_TOKEN=${BITBUCKET_SERVER_TOKEN:-}
+
+      # --- Service Options ---
+      - PORT=8080
+    env_file:
+      - path: .env
+        required: false
